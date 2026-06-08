@@ -1,0 +1,26 @@
+baseURL = "https://return-zero.dev/"
+languageCode = "en-us"
+title = "ReturnZero"
+theme = ""
+
+[params]
+  subtitle    = "Exploitability Analysis & Product Security Research"
+  tagline     = "Beyond PoCs. Real impact."
+  taglineSub  = "Every week, advisories label vulnerabilities CRITICAL. Few people verify if they actually are. This blog does."
+  author      = "covepseng"
+  github      = "https://github.com/covepseng"
+  description = "Exploitability analysis and product security research. Beyond PoCs. Real impact."
+
+[markup]
+  [markup.highlight]
+    style              = "nord"
+    lineNos            = false
+    lineNumbersInTable = false
+    noClasses          = false
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[taxonomies]
+  tag = "tags"
+
+paginate = 10

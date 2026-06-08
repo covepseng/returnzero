@@ -1,0 +1,119 @@
+{{ define "main" }}
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <div class="hero-label">
+      <span class="label-dot"></span>
+      Exploitability Analysis &amp; Product Security Research
+    </div>
+
+    <h1 class="hero-headline">
+      Beyond PoCs.<br>
+      <span class="hero-highlight">Real impact.</span>
+    </h1>
+
+    <p class="hero-sub">
+      {{ .Site.Params.taglineSub }}
+    </p>
+
+    <div class="hero-cta">
+      <a href="/posts/" class="btn-primary">Read the research</a>
+      <a href="{{ .Site.Params.github }}" class="btn-ghost" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.936.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        GitHub
+      </a>
+    </div>
+
+  </div>
+
+  <!-- decorative side element -->
+  <div class="hero-deco" aria-hidden="true">
+    <div class="deco-code">
+<pre><span class="dc-cm">// RealmBase.java — vulnerable</span>
+<span class="dc-kw">String</span> a1 = username
+         + <span class="dc-st">":"</span> + realmName
+         + <span class="dc-st">":"</span> + <span class="dc-fn">getPassword</span>(username);
+<span class="dc-cm">//             ^ null → "null"</span>
+
+<span class="dc-cm">// patch — return 0</span>
+<span class="dc-kw">String</span> pwd = <span class="dc-fn">getPassword</span>(username);
+<span class="dc-kw">if</span> (pwd == <span class="dc-kw">null</span>) <span class="dc-kw">return</span> <span class="dc-nu">0</span>;</pre>
+    </div>
+    <div class="deco-verdict">
+      <span class="verdict-dot"></span>
+      digest match: <strong>true</strong> &nbsp;·&nbsp; auth: <strong class="verdict-fail">401</strong> &nbsp;·&nbsp; <strong class="verdict-zero">return 0</strong>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── Posts ── -->
+<section class="posts-section">
+  <div class="posts-header">
+    <h2>Latest Research</h2>
+    <a href="/posts/" class="posts-all">All posts →</a>
+  </div>
+
+  <div class="posts-grid">
+    {{ range first 6 (where .Site.RegularPages "Type" "posts") }}
+    <article class="post-card">
+
+      <div class="post-card-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02, 2006" }}</time>
+        {{ with .Params.verdict }}
+        <span class="verdict-badge verdict-{{ . }}">{{ . }}</span>
+        {{ end }}
+      </div>
+
+      <h3 class="post-card-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h3>
+
+      {{ with .Params.cve }}
+      <div class="post-card-cve">{{ . }}</div>
+      {{ end }}
+
+      <p class="post-card-summary">{{ .Summary | truncate 160 }}</p>
+
+      <div class="post-card-footer">
+        {{ range .Params.tags }}
+        <span class="tag">{{ . }}</span>
+        {{ end }}
+      </div>
+
+    </article>
+    {{ end }}
+  </div>
+</section>
+
+<!-- ── About strip ── -->
+<section class="about-strip">
+  <div class="about-inner">
+    <div class="about-text">
+      <h2>What this blog is about</h2>
+      <p>Every week, advisories rate vulnerabilities as CRITICAL. Few people verify whether they are actually exploitable. This blog documents that verification process — with real containers, real source code references, and honest verdicts.</p>
+      <p>Written by a product security engineer. No hype. No speculation. <strong>Beyond PoCs. Real impact.</strong></p>
+    </div>
+    <div class="about-stats">
+      {{ $posts := where .Site.RegularPages "Type" "posts" }}
+      {{ $exploitable    := where $posts "Params.verdict" "exploitable" }}
+      {{ $notExploitable := where $posts "Params.verdict" "not-exploitable" }}
+      <div class="stat">
+        <span class="stat-num">{{ len $posts }}</span>
+        <span class="stat-label">CVEs analysed</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" style="color:var(--red)">{{ len $exploitable }}</span>
+        <span class="stat-label">Exploitable</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" style="color:var(--green)">{{ len $notExploitable }}</span>
+        <span class="stat-label">Not exploitable</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ end }}
