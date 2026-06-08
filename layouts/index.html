@@ -28,25 +28,6 @@
 
   </div>
 
-  <!-- decorative side element -->
-  <div class="hero-deco" aria-hidden="true">
-    <div class="deco-code">
-<pre><span class="dc-cm">// RealmBase.java — vulnerable</span>
-<span class="dc-kw">String</span> a1 = username
-         + <span class="dc-st">":"</span> + realmName
-         + <span class="dc-st">":"</span> + <span class="dc-fn">getPassword</span>(username);
-<span class="dc-cm">//             ^ null → "null"</span>
-
-<span class="dc-cm">// patch — return 0</span>
-<span class="dc-kw">String</span> pwd = <span class="dc-fn">getPassword</span>(username);
-<span class="dc-kw">if</span> (pwd == <span class="dc-kw">null</span>) <span class="dc-kw">return</span> <span class="dc-nu">0</span>;</pre>
-    </div>
-    <div class="deco-verdict">
-      <span class="verdict-dot"></span>
-      digest match: <strong>true</strong> &nbsp;·&nbsp; auth: <strong class="verdict-fail">401</strong> &nbsp;·&nbsp; <strong class="verdict-zero">return 0</strong>
-    </div>
-  </div>
-
 </section>
 
 <!-- ── Posts ── -->

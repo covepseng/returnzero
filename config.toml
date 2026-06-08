@@ -1,7 +1,6 @@
 baseURL = "https://return-zero.dev/"
 languageCode = "en-us"
 title = "ReturnZero"
-theme = ""
 
 [params]
   subtitle    = "Exploitability Analysis & Product Security Research"
