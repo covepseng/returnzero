@@ -28,6 +28,47 @@
 
   </div>
 
+  <!-- ── Hero right: methodology card ── -->
+  <div class="hero-deco" aria-hidden="true">
+    <div class="deco-steps">
+      <div class="deco-step">
+        <span class="deco-step-num">01</span>
+        <div class="deco-step-body">
+          <strong>Read the advisory</strong>
+          <span>CVE published, severity assigned.</span>
+        </div>
+      </div>
+      <div class="deco-step">
+        <span class="deco-step-num">02</span>
+        <div class="deco-step-body">
+          <strong>Read the source code</strong>
+          <span>Find the root cause. No assumptions.</span>
+        </div>
+      </div>
+      <div class="deco-step">
+        <span class="deco-step-num">03</span>
+        <div class="deco-step-body">
+          <strong>Build the environment</strong>
+          <span>Reproducible container. Real version.</span>
+        </div>
+      </div>
+      <div class="deco-step">
+        <span class="deco-step-num">04</span>
+        <div class="deco-step-body">
+          <strong>Run the exploit</strong>
+          <span>Does it work? Logs don't lie.</span>
+        </div>
+      </div>
+      <div class="deco-step">
+        <span class="deco-step-num">05</span>
+        <div class="deco-step-body">
+          <strong>Publish the verdict</strong>
+          <span>Honest. Sourced. No hype.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ── Posts ── -->
@@ -74,24 +115,22 @@
   <div class="about-inner">
     <div class="about-text">
       <h2>What this blog is about</h2>
-      <p>Every week, advisories rate vulnerabilities as CRITICAL. Few people verify whether they are actually exploitable. This blog documents that verification process — with real containers, real source code references, and honest verdicts.</p>
+      <p>Every week, advisories rate vulnerabilities as CRITICAL. Few people verify whether the impact is actually as severe as it appears. This blog documents that verification process — with real containers, real source code references, and honest verdicts.</p>
       <p>Written by a product security engineer. No hype. No speculation. <strong>Beyond PoCs. Real impact.</strong></p>
     </div>
     <div class="about-stats">
       {{ $posts := where .Site.RegularPages "Type" "posts" }}
-      {{ $exploitable    := where $posts "Params.verdict" "exploitable" }}
-      {{ $notExploitable := where $posts "Params.verdict" "not-exploitable" }}
       <div class="stat">
         <span class="stat-num">{{ len $posts }}</span>
         <span class="stat-label">CVEs analysed</span>
       </div>
       <div class="stat">
-        <span class="stat-num" style="color:var(--red)">{{ len $exploitable }}</span>
-        <span class="stat-label">Exploitable</span>
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Source verified</span>
       </div>
       <div class="stat">
-        <span class="stat-num" style="color:var(--green)">{{ len $notExploitable }}</span>
-        <span class="stat-label">Not exploitable</span>
+        <span class="stat-num">0</span>
+        <span class="stat-label">Assumptions</span>
       </div>
     </div>
   </div>
